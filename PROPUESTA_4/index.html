@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INJIBOA — Ingenio Azucarero JIBOA</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>#app-loading{ min-height:100vh; display:flex; align-items:center; justify-content:center; font-family:'Manrope',sans-serif; color:#7a8a9a; font-size:15px; }</style>
+</head>
+<body>
+
+<div id="root"><div id="app-loading">Cargando INJIBOA…</div></div>
+
+<!-- React + Babel standalone: la app (con JSX incluido) corre directo en el navegador, sin paso de instalación ni compilación. Todo el código va en este mismo archivo (en vez de un app.jsx aparte) para que funcione abriéndolo directamente con doble clic, sin depender de un servidor local. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.25.6/babel.min.js"></script>
+<script type="text/babel" data-presets="react">
+
+const { useState, useEffect, useRef } = React;
+
+/* ============ Datos ============ */
+
+const NAV_LINKS = [
+  { id: "inicio", label: "Inicio", href: "#/inicio" },
+  { id: "nosotros", label: "Nosotros", href: "#/nosotros" },
+  { id: "productos", label: "Productos", href: "#/inicio/productos" },
+  { id: "sostenibilidad", label: "Sostenibilidad", href: "#/inicio/sostenibilidad" },
+  { id: "contacto", label: "Contacto", href: "#/contacto" },
+];
+
+const HERO_SLIDES = [
+  {
+    eyebrow: "Ingenio Azucarero JIBOA",
+    title: "Más de 50 años impulsando el desarrollo de San Vicente",
+    lead: "INJIBOA es un pilar de la actividad agroindustrial en El Salvador: generamos empleo, dinamizamos la economía local y producimos con responsabilidad desde nuestra fundación en 1976.",
+    primary: { label: "Conócenos", href: "#/nosotros" },
+    secondary: { label: "Nuestros productos", href: "#/inicio/productos" }
+  },
+  {
+    eyebrow: "Lo que producimos",
+    title: "Azúcar, melaza y energía renovable",
+    lead: "Aprovechamos cada parte de la caña para generar productos de calidad y energía limpia para la región.",
+    primary: { label: "Ver productos", href: "#/inicio/productos" },
+    secondary: { label: "Sostenibilidad", href: "#/inicio/sostenibilidad" }
+  },
+  {
+    eyebrow: "Nuestro compromiso",
+    title: "Comprometidos con nuestra gente y nuestra tierra",
+    lead: "Generamos empleo local y aprovechamos el bagazo de caña como energía renovable desde 1976.",
+    primary: { label: "Contáctanos", href: "#/contacto" },
+    secondary: { label: "Nuestra historia", href: "#/nosotros" }
+  }
+];
+
+const IMPACT_ITEMS = [
+  "Generación de empleo local para los habitantes de San Vicente.",
+  "Aprovechamiento del bagazo de caña como fuente de energía renovable.",
+  "Motor de desarrollo económico para el departamento desde 1976."
+];
+
+const TIMELINE = [
+  { year: "1974", title: "Inicio de construcción", desc: "Comienza la construcción del Ingenio Azucarero JIBOA en el departamento de San Vicente." },
+  { year: "1976", title: "Inauguración oficial", desc: "En enero de 1976, INJIBOA abre sus puertas e inicia operaciones formalmente." },
+  { year: "Hoy", title: "Más de 50 años después", desc: "Continuamos generando desarrollo y empleo para los habitantes de la zona." }
+];
+
+/* ============ Íconos ============ */
+
+function IconPhone({ size = 16, className }) {
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none"><path d="M5 4H9L11 9L8.5 10.5C9.5 12.7 11.3 14.5 13.5 15.5L15 13L20 15V19C20 20.1 19.1 21 18 21C10.3 20.5 4 14.2 3.5 6.5C3.5 5.1 4.1 4 5 4Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>;
+}
+function IconMail({ size = 16, className }) {
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none"><path d="M3 6H21V18H3V6Z" stroke="currentColor" strokeWidth="1.7"/><path d="M3 7L12 13L21 7" stroke="currentColor" strokeWidth="1.7"/></svg>;
+}
+function IconLocation({ size = 16, className }) {
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none"><path d="M12 22C12 22 19 15.5 19 10A7 7 0 0 0 5 10C5 15.5 12 22 12 22Z" stroke="currentColor" strokeWidth="1.7"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" strokeWidth="1.7"/></svg>;
+}
+function IconClock({ size = 22, className }) {
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.7"/><path d="M12 7V12L15.5 14" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>;
+}
+function IconCheck({ size = 24, className }) {
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+}
+function IconArrowRight() {
+  return <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+}
+function IconChevronLeft() {
+  return <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+}
+function IconChevronRight() {
+  return <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+}
+function IconSugar() {
+  return <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+    <rect x="3.5" y="12.5" width="7.5" height="7.5" rx="1.6" stroke="var(--azul-700)" strokeWidth="1.7"/>
+    <rect x="13" y="12.5" width="7.5" height="7.5" rx="1.6" stroke="var(--azul-700)" strokeWidth="1.7"/>
+    <rect x="8.25" y="3.5" width="7.5" height="7.5" rx="1.6" stroke="var(--azul-700)" strokeWidth="1.7"/>
+  </svg>;
+}
+function IconMolasses() {
+  return <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+    <path d="M12 3C12 3 5 11 5 15.5C5 19.09 8.13 22 12 22C15.87 22 19 19.09 19 15.5C19 11 12 3 12 3Z" stroke="var(--celeste-600)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M9.3 15.8C9.1 17.2 10 18.4 11.2 18.7" stroke="var(--celeste-600)" strokeWidth="1.4" strokeLinecap="round" opacity="0.6"/>
+  </svg>;
+}
+function IconEnergy() {
+  return <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14H11L10 22L20 9H13L13 2Z" fill="var(--verde-600)" stroke="var(--verde-600)" strokeWidth="1" strokeLinejoin="round"/></svg>;
+}
+function HeroShapes() {
+  return <svg className="hero-shapes" viewBox="0 0 640 640" fill="none">
+    <polygon points="360,40 460,220 360,300 300,140" fill="var(--celeste-500)" opacity="0.5"/>
+    <polygon points="470,120 560,340 460,420 410,220" fill="var(--azul-500)" opacity="0.45"/>
+    <polygon points="300,260 380,440 290,520 230,340" fill="var(--verde-500)" opacity="0.35"/>
+    <polygon points="420,320 520,480 430,580 370,420" fill="var(--azul-700)" opacity="0.2"/>
+  </svg>;
+}
+
+const PRODUCTS = [
+  { title: "Azúcar", bg: "var(--azul-100)", icon: <IconSugar/>, desc: "Producción de azúcar de caña en distintas presentaciones para consumo nacional e industrial." },
+  { title: "Melaza", bg: "var(--celeste-100)", icon: <IconMolasses/>, desc: "Subproducto de la molienda utilizado en la industria alimenticia y de biocombustibles." },
+  { title: "Energía renovable", bg: "var(--verde-100)", icon: <IconEnergy/>, desc: "Cogeneración de energía eléctrica a partir del bagazo de caña, aprovechando cada parte del proceso." }
+];
+
+/* ============ Hooks utilitarios ============ */
+
+function useHashRoute() {
+  function parse() {
+    const hash = window.location.hash.replace(/^#\/?/, "");
+    const parts = hash.split("/").filter(Boolean);
+    return { page: parts[0] || "inicio", target: parts[1] || null };
+  }
+  const [route, setRoute] = useState(parse);
+  useEffect(() => {
+    function onHashChange() { setRoute(parse()); }
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+  return route;
+}
+
+function useScrollY() {
+  const [y, setY] = useState(window.scrollY);
+  useEffect(() => {
+    function onScroll() { setY(window.scrollY); }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return y;
+}
+
+function useInView(options) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    if (!ref.current || !("IntersectionObserver" in window)) { setInView(true); return; }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) { setInView(true); obs.unobserve(entry.target); }
+      });
+    }, options || { threshold: 0.25 });
+    obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, inView];
+}
+
+function useCountUp(target, active, duration) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!active) return;
+    let startTs = null, raf;
+    function tick(ts) {
+      if (!startTs) startTs = ts;
+      const progress = Math.min((ts - startTs) / (duration || 1200), 1);
+      setValue(Math.floor(progress * target));
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    }
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [active]);
+  return value;
+}
+
+/* ============ Piezas compartidas ============ */
+
+function UtilityBar() {
+  return (
+    <div className="utility-bar">
+      <div className="container utility-bar-inner">
+        <div className="utility-left">
+          <a href="tel:+50300000000"><IconPhone size={14}/><span>[+503 0000-0000]</span></a>
+          <a href="mailto:info@injiboa.com"><IconMail size={15}/><span>[info@injiboa.com]</span></a>
+        </div>
+        <div className="utility-right"><a href="#/contacto">Proveedores</a></div>
+      </div>
+    </div>
+  );
+}
+
+function Header({ route, activeSection, mobileOpen, setMobileOpen }) {
+  const scrollY = useScrollY();
+  const shrunk = scrollY > 30;
+
+  useEffect(() => { setMobileOpen(false); }, [route.page, route.target]);
+
+  function isActive(id) {
+    if (id === "nosotros" || id === "contacto") return route.page === id;
+    if (route.page !== "inicio") return false;
+    if (id === "inicio") return activeSection === "hero";
+    return activeSection === id;
+  }
+
+  return (
+    <header className={"site-header" + (shrunk ? " is-shrunk" : "")}>
+      <div className="container header-inner">
+        <a className="logo-link" href="#/inicio"><img src="assets/logo-injiboa.png" alt="INJIBOA - Ingenio Azucarero"/></a>
+        <nav className="desktop-nav">
+          {NAV_LINKS.map((link) => (
+            <a key={link.id} className={"nav-link" + (isActive(link.id) ? " active" : "")} href={link.href}>{link.label}</a>
+          ))}
+        </nav>
+        <div className="header-cta"><a className="btn-primary" href="#/contacto">Contáctenos</a></div>
+        <button className="mobile-menu-toggle" aria-label="Abrir menú" aria-expanded={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d={mobileOpen ? "M6 6L18 18M6 18L18 6" : "M4 7H20M4 12H20M4 17H20"} stroke="#1c2733" strokeWidth="2" strokeLinecap="round"/></svg>
+        </button>
+      </div>
+      <div className={"mobile-nav" + (mobileOpen ? " is-open" : "")}>
+        {NAV_LINKS.map((link) => <a key={link.id} href={link.href}>{link.label}</a>)}
+        <a className="btn-primary" href="#/contacto">Contáctenos</a>
+      </div>
+    </header>
+  );
+}
+
+function BackToTop() {
+  const y = useScrollY();
+  const visible = y > 500;
+  return (
+    <button className={"scroll-top-btn" + (visible ? " is-visible" : "")} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Volver arriba" aria-hidden={!visible} tabIndex={visible ? 0 : -1}>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+    </button>
+  );
+}
+
+function CtaBanner({ title, text, ctaLabel, ctaHref }) {
+  const [ref, inView] = useInView({ threshold: 0.2 });
+  return (
+    <section className="cta-banner">
+      <div ref={ref} className={"container cta-inner reveal" + (inView ? " is-visible" : "")}>
+        <h2>{title}</h2>
+        <p>{text}</p>
+        <a className="btn-primary" href={ctaHref}>{ctaLabel}</a>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="site-footer">
+      <div className="container">
+        <div className="footer-inner">
+          <div className="footer-brand">
+            <img src="assets/logo-injiboa.png" alt="INJIBOA"/>
+            <p>Ingenio Azucarero JIBOA, motor de desarrollo agroindustrial en San Vicente, El Salvador desde 1976.</p>
+            <div className="footer-social">
+              <a href="#" aria-label="Correo"><IconMail size={17}/></a>
+              <a href="#" aria-label="Teléfono"><IconPhone size={16}/></a>
+              <a href="#" aria-label="Ubicación"><IconLocation size={15}/></a>
+            </div>
+          </div>
+          <div className="footer-col">
+            <h4>Enlaces</h4>
+            <a href="#/inicio">Inicio</a>
+            <a href="#/nosotros">Nosotros</a>
+            <a href="#/inicio/productos">Productos</a>
+            <a href="#/inicio/sostenibilidad">Sostenibilidad</a>
+            <a href="#/contacto">Contacto</a>
+          </div>
+          <div className="footer-col">
+            <h4>Contacto</h4>
+            <p>[Dirección del ingenio, San Vicente, El Salvador]</p>
+            <p>[+503 0000-0000]</p>
+            <p>[info@injiboa.com]</p>
+          </div>
+          <div className="footer-col">
+            <h4>Ética y transparencia</h4>
+            <a href="#">[Memoria de labores]</a>
+            <a href="#">[Código de ética]</a>
+            <a href="#">[Aviso de privacidad]</a>
+            <a href="#">[Trabaja con nosotros]</a>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>© {new Date().getFullYear()} INJIBOA — Ingenio Azucarero JIBOA. Todos los derechos reservados.</span>
+          <span>San Vicente, El Salvador</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ============ Página Inicio ============ */
+
+function HeroCarousel() {
+  const [index, setIndex] = useState(0);
+  const timerRef = useRef(null);
+
+  function stop() { if (timerRef.current) clearInterval(timerRef.current); }
+  function start() { stop(); timerRef.current = setInterval(() => setIndex((i) => (i + 1) % HERO_SLIDES.length), 6500); }
+  useEffect(() => { start(); return stop; }, []);
+  function goTo(i) { setIndex((i + HERO_SLIDES.length) % HERO_SLIDES.length); start(); }
+
+  const slide = HERO_SLIDES[index];
+  return (
+    <section className="hero" onMouseEnter={stop} onMouseLeave={start}>
+      <HeroShapes/>
+      <div className="container hero-inner">
+        <div className="hero-carousel">
+          <div className="hero-slide is-active" key={index}>
+            <span className="eyebrow">{slide.eyebrow}</span>
+            <h1>{slide.title}</h1>
+            <p className="hero-lead">{slide.lead}</p>
+            <div className="hero-actions">
+              <a className="btn-primary" href={slide.primary.href}>{slide.primary.label}</a>
+              <a className="btn-secondary" href={slide.secondary.href}>{slide.secondary.label}</a>
+            </div>
+          </div>
+        </div>
+        <div className="hero-controls">
+          <button className="hero-arrow" onClick={() => goTo(index - 1)} aria-label="Diapositiva anterior"><IconChevronLeft/></button>
+          <div className="hero-dots">
+            {HERO_SLIDES.map((_, i) => (
+              <button key={i} className={"hero-dot" + (i === index ? " is-active" : "")} onClick={() => goTo(i)} aria-label={"Ir a la diapositiva " + (i + 1)}/>
+            ))}
+          </div>
+          <button className="hero-arrow" onClick={() => goTo(index + 1)} aria-label="Siguiente diapositiva"><IconChevronRight/></button>
+        </div>
+        <StatsRow/>
+      </div>
+    </section>
+  );
+}
+
+function StatsRow() {
+  const [ref, inView] = useInView({ threshold: 0.5 });
+  const anos = useCountUp(50, inView, 1200);
+  return (
+    <div className="hero-stats" ref={ref}>
+      <div className="stat"><span className="stat-num">1976</span><span className="stat-label">Año de inauguración</span></div>
+      <div className="stat"><span className="stat-num">+{anos}</span><span className="stat-label">Años de operación</span></div>
+      <div className="stat"><span className="stat-num">San Vicente</span><span className="stat-label">El Salvador</span></div>
+    </div>
+  );
+}
+
+function AboutTeaser() {
+  return (
+    <section className="about-teaser">
+      <div className="container about-inner">
+        <img className="about-media media-img" src="assets/valle-jiboa.jpg" alt="Vista panorámica del Valle de Jiboa y el volcán de San Vicente"/>
+        <div className="about-copy">
+          <span className="eyebrow">Nuestra historia</span>
+          <h2>Construido para crecer junto a su comunidad</h2>
+          <p>El Ingenio Azucarero JIBOA (INJIBOA) fue construido en el departamento de San Vicente entre 1974 y 1976, e inaugurado en enero de 1976. Desde entonces, ha impulsado el desarrollo y la generación de empleo para los habitantes de la zona, consolidándose como un pilar de la actividad agroindustrial de la región.</p>
+          <a className="link-arrow" href="#/nosotros">Conoce más sobre nuestra historia <IconArrowRight/></a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProductsGrid() {
+  return (
+    <section className="products" id="productos">
+      <div className="container">
+        <div className="section-head center"><span className="eyebrow">Lo que producimos</span><h2>Productos y procesos</h2></div>
+        <div className="products-grid">
+          {PRODUCTS.map((p) => (
+            <article className="product-card" key={p.title}>
+              <div className="product-icon" style={{ background: p.bg }}>{p.icon}</div>
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ImpactChecklist() {
+  const [checked, setChecked] = useState(IMPACT_ITEMS.map(() => true));
+  const [ref, inView] = useInView({ threshold: 0.3 });
+  function toggle(i) { setChecked((c) => { const next = c.slice(); next[i] = !next[i]; return next; }); }
+  return (
+    <section className="impact" id="sostenibilidad">
+      <div className="container impact-inner">
+        <div className="impact-copy">
+          <span className="eyebrow">Nuestro compromiso</span>
+          <h2>Comprometidos con nuestra gente y nuestra tierra</h2>
+          <p>Como generadores de empleo en San Vicente desde 1976, entendemos que el crecimiento del ingenio está ligado al bienestar de las familias y comunidades que nos rodean.</p>
+        </div>
+        <div className="impact-list" ref={ref}>
+          {IMPACT_ITEMS.map((text, i) => (
+            <div className={"impact-item" + (checked[i] ? "" : " is-off")} key={i}>
+              <button type="button" className={"impact-icon" + (inView ? " is-ready" : "")} aria-pressed={checked[i]} aria-label="Marcar o desmarcar" onClick={() => toggle(i)}>
+                <IconCheck size={16}/>
+              </button>
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomePage({ onSectionChange }) {
+  useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
+    const targets = [
+      { id: "hero", el: document.querySelector(".hero") },
+      { id: "productos", el: document.getElementById("productos") },
+      { id: "sostenibilidad", el: document.getElementById("sostenibilidad") }
+    ].filter((t) => t.el);
+    if (!targets.length) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const match = targets.find((t) => t.el === entry.target);
+          if (match) onSectionChange(match.id);
+        }
+      });
+    }, { rootMargin: "-100px 0px -55% 0px", threshold: 0 });
+    targets.forEach((t) => obs.observe(t.el));
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <React.Fragment>
+      <HeroCarousel/>
+      <AboutTeaser/>
+      <ProductsGrid/>
+      <ImpactChecklist/>
+      <CtaBanner title="¿Quieres conocer más sobre INJIBOA?" text="Escríbenos y con gusto atenderemos tu consulta." ctaLabel="Contáctanos" ctaHref="#/contacto"/>
+    </React.Fragment>
+  );
+}
+
+/* ============ Página Nosotros ============ */
+
+function ValleyBanner() {
+  return (
+    <section className="valley-banner">
+      <div className="valley-media">
+        <img className="media-img" src="assets/valle-jiboa.jpg" alt="Vista panorámica del Valle de Jiboa y el volcán de San Vicente"/>
+        <span className="valley-caption">Valle de Jiboa — San Vicente, El Salvador</span>
+      </div>
+    </section>
+  );
+}
+
+function Timeline() {
+  return (
+    <section className="timeline">
+      <div className="container">
+        <div className="section-head"><span className="eyebrow">Línea de tiempo</span><h2>Casi medio siglo de historia</h2></div>
+        <div className="timeline-track">
+          {TIMELINE.map((t) => (
+            <div className="timeline-item" key={t.year}>
+              <div className="timeline-dot">{t.year}</div>
+              <div className="timeline-card"><h3>{t.title}</h3><p>{t.desc}</p></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HistoriaSection() {
+  return (
+    <section className="historia">
+      <div className="container historia-inner">
+        <img className="historia-media media-img" src="assets/volcan-paisaje.jpg" alt="Vista del valle agrícola y el volcán de San Vicente al atardecer"/>
+        <div className="historia-copy">
+          <span className="eyebrow">Cómo empezamos</span>
+          <h2>Construido para crecer junto a su comunidad</h2>
+          <p>El Ingenio Azucarero JIBOA (INJIBOA) fue construido en el departamento de San Vicente entre 1974 y 1976, e inaugurado en enero de 1976.</p>
+          <p>Desde entonces, ha impulsado el desarrollo y la generación de empleo para los habitantes de la zona, consolidándose como un pilar de la actividad agroindustrial de la región hasta la fecha.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MisionVision() {
+  const [tab, setTab] = useState("mision");
+  return (
+    <section className="mv">
+      <div className="container mv-inner">
+        <span className="eyebrow">Misión y visión</span>
+        <h2 style={{ marginBottom: 28 }}>Lo que nos mueve</h2>
+        <div className="mv-tabs">
+          <button className={"mv-tab" + (tab === "mision" ? " is-active" : "")} onClick={() => setTab("mision")}>Misión</button>
+          <button className={"mv-tab" + (tab === "vision" ? " is-active" : "")} onClick={() => setTab("vision")}>Visión</button>
+        </div>
+        <div className={"mv-panel" + (tab === "mision" ? " is-active" : "")}>
+          <h3>Misión</h3><p>[Espacio para la misión institucional de INJIBOA — pendiente de confirmar con el cliente.]</p>
+        </div>
+        <div className={"mv-panel" + (tab === "vision" ? " is-active" : "")}>
+          <h3>Visión</h3><p>[Espacio para la visión institucional de INJIBOA — pendiente de confirmar con el cliente.]</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function NosotrosPage() {
+  return (
+    <React.Fragment>
+      <section className="page-hero">
+        <div className="container">
+          <span className="eyebrow">Nuestra historia</span>
+          <h1>El ingenio que impulsa el desarrollo de San Vicente</h1>
+          <p>Desde 1976, INJIBOA acompaña el crecimiento agroindustrial de la región, generando empleo y oportunidades para las familias de la zona.</p>
+        </div>
+      </section>
+      <ValleyBanner/>
+      <Timeline/>
+      <HistoriaSection/>
+      <MisionVision/>
+      <CtaBanner title="¿Quieres saber más sobre INJIBOA?" text="Estamos para atenderte. Escríbenos tus preguntas." ctaLabel="Contáctanos" ctaHref="#/contacto"/>
+    </React.Fragment>
+  );
+}
+
+/* ============ Página Contacto ============ */
+
+function ContactForm() {
+  const [values, setValues] = useState({ nombre: "", correo: "", telefono: "", asunto: "Información general", mensaje: "" });
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+
+  function update(field, val) {
+    setValues((v) => ({ ...v, [field]: val }));
+    if (errors[field]) setErrors((e) => ({ ...e, [field]: null }));
+  }
+  function validate(v) {
+    const errs = {};
+    if (!v.nombre.trim()) errs.nombre = "Ingresa tu nombre.";
+    if (!v.correo.trim() || v.correo.indexOf("@") === -1) errs.correo = "Ingresa un correo válido.";
+    if (!v.mensaje.trim()) errs.mensaje = "Escribe tu mensaje.";
+    return errs;
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    const errs = validate(values);
+    setErrors(errs);
+    if (Object.keys(errs).length === 0) setSubmitted(true);
+  }
+
+  if (submitted) {
+    return (
+      <div className="success-box is-visible">
+        <div className="success-icon"><IconCheck size={26}/></div>
+        <h3>¡Gracias por escribirnos!</h3>
+        <p>Hemos recibido tu mensaje. Nuestro equipo se pondrá en contacto contigo pronto.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} noValidate>
+      <h2>Envíanos un mensaje</h2>
+      <div className="form-row">
+        <div className="form-field">
+          <label htmlFor="nombre">Nombre completo</label>
+          <input type="text" id="nombre" className={errors.nombre ? "has-error" : ""} value={values.nombre} onChange={(e) => update("nombre", e.target.value)} placeholder="Tu nombre"/>
+          <p className={"error-text" + (errors.nombre ? " is-visible" : "")}>{errors.nombre || "Ingresa tu nombre."}</p>
+        </div>
+        <div className="form-field">
+          <label htmlFor="correo">Correo electrónico</label>
+          <input type="email" id="correo" className={errors.correo ? "has-error" : ""} value={values.correo} onChange={(e) => update("correo", e.target.value)} placeholder="tucorreo@ejemplo.com"/>
+          <p className={"error-text" + (errors.correo ? " is-visible" : "")}>{errors.correo || "Ingresa un correo válido."}</p>
+        </div>
+      </div>
+      <div className="form-row">
+        <div className="form-field">
+          <label htmlFor="telefono">Teléfono (opcional)</label>
+          <input type="tel" id="telefono" value={values.telefono} onChange={(e) => update("telefono", e.target.value)} placeholder="+503 0000-0000"/>
+        </div>
+        <div className="form-field">
+          <label htmlFor="asunto">Asunto</label>
+          <select id="asunto" value={values.asunto} onChange={(e) => update("asunto", e.target.value)}>
+            <option>Información general</option>
+            <option>Recursos humanos</option>
+            <option>Proveedores</option>
+            <option>Otro</option>
+          </select>
+        </div>
+      </div>
+      <div className="form-field">
+        <label htmlFor="mensaje">Mensaje</label>
+        <textarea rows="5" id="mensaje" className={errors.mensaje ? "has-error" : ""} value={values.mensaje} onChange={(e) => update("mensaje", e.target.value)} placeholder="Cuéntanos en qué podemos ayudarte" maxLength={600}></textarea>
+        <div className="field-meta">
+          <p className={"error-text" + (errors.mensaje ? " is-visible" : "")}>{errors.mensaje || "Escribe tu mensaje."}</p>
+          <span className="char-count">{values.mensaje.length}/600</span>
+        </div>
+      </div>
+      <button type="submit" className="btn-primary">Enviar mensaje</button>
+    </form>
+  );
+}
+
+function ContactoPage() {
+  return (
+    <React.Fragment>
+      <section className="page-hero" style={{ paddingBottom: 64 }}>
+        <div className="container">
+          <span className="eyebrow">Contacto</span>
+          <h1>Hablemos</h1>
+          <p>¿Tienes una consulta, eres proveedor o buscas oportunidades laborales? Escríbenos y con gusto te atenderemos.</p>
+        </div>
+      </section>
+      <section style={{ paddingTop: 0 }}>
+        <div className="container contact-inner">
+          <div className="form-card"><ContactForm/></div>
+          <div>
+            <div className="info-card">
+              <h3>Información de contacto</h3>
+              <div className="info-row"><IconLocation size={22} className="icon"/><p>[Dirección del ingenio, San Vicente, El Salvador]</p></div>
+              <div className="info-row"><IconPhone size={22} className="icon"/><p>[+503 0000-0000]</p></div>
+              <div className="info-row"><IconMail size={22} className="icon"/><p>[info@injiboa.com]</p></div>
+              <div className="info-row"><IconClock size={22} className="icon"/><p>[Lunes a viernes, 8:00 am – 5:00 pm]</p></div>
+            </div>
+            <img className="map-block media-img" src="assets/ilustracion-mapa.svg" alt="Mapa ilustrativo, no a escala, con la ubicación aproximada del ingenio en San Vicente"/>
+          </div>
+        </div>
+      </section>
+    </React.Fragment>
+  );
+}
+
+/* ============ App raíz (con "router" por hash) ============ */
+
+function App() {
+  const route = useHashRoute();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(route.target || "hero");
+
+  useEffect(() => {
+    if (route.page === "inicio") setActiveSection(route.target || "hero");
+  }, [route.page, route.target]);
+
+  useEffect(() => {
+    if (route.target) {
+      const el = document.getElementById(route.target);
+      if (el) {
+        const t = setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+        return () => clearTimeout(t);
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [route.page, route.target]);
+
+  let page;
+  if (route.page === "nosotros") page = <NosotrosPage/>;
+  else if (route.page === "contacto") page = <ContactoPage/>;
+  else page = <HomePage onSectionChange={setActiveSection}/>;
+
+  return (
+    <React.Fragment>
+      <UtilityBar/>
+      <Header route={route} activeSection={activeSection} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen}/>
+      <div key={route.page} className="page-transition">{page}</div>
+      <Footer/>
+      <BackToTop/>
+    </React.Fragment>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App/>);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+/* El efecto se aplica a superficies; el texto conserva su opacidad. */
+@media(hover:hover) and (pointer:fine){
+ .crystal-interactive{position:relative;isolation:isolate;transition:transform .35s ease,box-shadow .35s ease,background-color .35s ease;transform:perspective(1100px) rotateX(var(--glass-rx,0deg)) rotateY(var(--glass-ry,0deg))}
+ .crystal-interactive:after{content:'';position:absolute;inset:0;z-index:0;border-radius:inherit;pointer-events:none;opacity:0;background:radial-gradient(240px circle at var(--glass-x,50%) var(--glass-y,50%),rgba(224,246,255,.28),rgba(255,255,255,.06) 45%,transparent 72%);transition:opacity .35s ease}
+ .crystal-interactive>*{position:relative;z-index:1}
+ .crystal-interactive.glass-active:after{opacity:1}
+ .crystal-interactive.glass-active{box-shadow:inset 0 1px 0 #ffffff85,0 9px 25px #365a7010}
+ .history.glass-active{background:linear-gradient(120deg,#f6f8f4ba,#eff6f9a6)}
+ .product.glass-active{background-color:#eaf4fa55}
+ .commitments article.glass-active{background-color:#ffffff38}
+ .map-card.glass-active .map-caption{background:#f0f5f69c}
+ .footer-top.glass-active{background:linear-gradient(120deg,#ffffff09,#d5efff04)}
+ .header{transition:background .3s ease,box-shadow .3s ease}
+ @supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.header:hover{background:linear-gradient(115deg,#ffffffa3,#e6f5fd8c);box-shadow:0 5px 24px #2c4b5b0c,inset 0 -1px 0 #ffffff80}}
+ .button,.header nav a{transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+ .button:hover,.header nav .nav-contact:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 #ffffff50,0 7px 16px #365a7016}
+}
+@media(prefers-reduced-motion:reduce){.crystal-interactive,.button,.header nav a{transform:none!important;transition:none!important}.crystal-interactive:after{display:none}}
+@media(prefers-reduced-transparency:reduce){.crystal-interactive:after{display:none}.header:hover{background:#f5f9fb}.history.glass-active{background:#f4f6f2}.product.glass-active{background:#f3f7fa}.commitments article.glass-active{background:#f4f6f2}.map-card.glass-active .map-caption{background:#f0f5f6}.footer-top.glass-active{background:#36534c}}
+
+/* Mismo acabado y respuesta para ambos botones principales. */
+.header nav .nav-contact{background:var(--green);border:1px solid var(--green);border-radius:10px;box-shadow:none;color:#fff}
+.header nav .nav-contact:hover{background:#48604a;color:#fff}

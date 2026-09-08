@@ -1,0 +1,8 @@
+/* Pie institucional con una capa de vidrio sobre verde y celeste. */
+footer{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 85% 0%,#60818b 0,transparent 55%),linear-gradient(120deg,#263c2e,#344f4a 60%,#345965);color:#eef4f4;border-top:1px solid #d9efff65;box-shadow:inset 0 1px 0 #ffffff40}
+footer:before{content:'';position:absolute;z-index:-1;inset:0;pointer-events:none;background:linear-gradient(115deg,#e5f5ff1c,transparent 40%,#c7eaff10 75%,transparent);box-shadow:inset 0 1px 18px #d7efff08}
+.footer-top{padding:28px 32px 32px;background:linear-gradient(120deg,#ffffff12,#d5efff08);border:1px solid #e3f4ff35;border-radius:16px;box-shadow:inset 0 1px 0 #ffffff28,0 10px 28px #142b2512;backdrop-filter:blur(14px) saturate(115%);-webkit-backdrop-filter:blur(14px) saturate(115%);margin-bottom:28px}
+.footer-brand{background:linear-gradient(135deg,#fff,#f0f7fa);border:1px solid #ffffffd9;border-radius:10px;box-shadow:inset 0 1px 0 white,0 5px 15px #142b251a}
+.footer-top p{color:#f0f5f5}.footer-top>a:last-child{color:#f0f5f5;border-bottom:1px solid #ffffff55;padding-block:6px}.footer-top>a:last-child:hover{border-color:#d0eeff;color:#fff}.footer-bottom{border-top-color:#d9eeff30}.footer-bottom small{color:#e0ebeb}
+@media(max-width:760px){.footer-top{padding:24px;border-radius:12px;gap:25px;margin-bottom:20px}.footer-top p{font-size:20px}}
+@media(prefers-reduced-transparency:reduce){footer{background:#2c4540}footer:before{display:none}.footer-top{background:#36534c;backdrop-filter:none;-webkit-backdrop-filter:none}}
