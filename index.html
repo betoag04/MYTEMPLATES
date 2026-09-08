@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INJIBOA — Ingenio Azucarero JIBOA</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo-link" href="index.html"><img src="assets/logo-injiboa.png" alt="INJIBOA - Ingenio Azucarero"></a>
+    <nav class="desktop-nav">
+      <a class="nav-link active" href="index.html" data-nav="inicio">Inicio</a>
+      <a class="nav-link" href="nosotros.html">Nosotros</a>
+      <a class="nav-link" href="index.html#productos" data-nav="productos">Productos</a>
+      <a class="nav-link" href="index.html#sostenibilidad" data-nav="sostenibilidad">Sostenibilidad</a>
+      <a class="nav-link" href="contacto.html">Contacto</a>
+    </nav>
+    <div class="header-cta"><a class="btn-primary" href="contacto.html">Contáctenos</a></div>
+    <button class="mobile-menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path class="icon-path" d="M4 7H20M4 12H20M4 17H20" stroke="#1c2733" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="mobile-nav">
+    <a href="index.html" data-nav="inicio">Inicio</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="index.html#productos" data-nav="productos">Productos</a>
+    <a href="index.html#sostenibilidad" data-nav="sostenibilidad">Sostenibilidad</a>
+    <a href="contacto.html">Contacto</a>
+    <a class="btn-primary" href="contacto.html">Contáctenos</a>
+  </div>
+</header>
+
+<section class="hero">
+  <svg class="hero-shapes" viewBox="0 0 640 640" fill="none">
+    <polygon points="360,40 460,220 360,300 300,140" fill="var(--celeste-500)" opacity="0.5"/>
+    <polygon points="470,120 560,340 460,420 410,220" fill="var(--azul-500)" opacity="0.45"/>
+    <polygon points="300,260 380,440 290,520 230,340" fill="var(--verde-500)" opacity="0.35"/>
+    <polygon points="420,320 520,480 430,580 370,420" fill="var(--azul-700)" opacity="0.2"/>
+  </svg>
+  <div class="container hero-inner">
+    <div class="hero-carousel" id="hero-carousel">
+      <div class="hero-slide is-active" data-slide="0">
+        <span class="eyebrow">Ingenio Azucarero JIBOA</span>
+        <h1>Más de 50 años impulsando el desarrollo de San Vicente</h1>
+        <p class="hero-lead">INJIBOA es un pilar de la actividad agroindustrial en El Salvador: generamos empleo, dinamizamos la economía local y producimos con responsabilidad desde nuestra fundación en 1976.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="nosotros.html">Conócenos</a>
+          <a class="btn-secondary" href="#productos">Nuestros productos</a>
+        </div>
+      </div>
+      <div class="hero-slide" data-slide="1">
+        <span class="eyebrow">Lo que producimos</span>
+        <h1>Azúcar, melaza y energía renovable</h1>
+        <p class="hero-lead">Aprovechamos cada parte de la caña para generar productos de calidad y energía limpia para la región.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#productos">Ver productos</a>
+          <a class="btn-secondary" href="#sostenibilidad">Sostenibilidad</a>
+        </div>
+      </div>
+      <div class="hero-slide" data-slide="2">
+        <span class="eyebrow">Nuestro compromiso</span>
+        <h1>Comprometidos con nuestra gente y nuestra tierra</h1>
+        <p class="hero-lead">Generamos empleo local y aprovechamos el bagazo de caña como energía renovable desde 1976.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="contacto.html">Contáctanos</a>
+          <a class="btn-secondary" href="nosotros.html">Nuestra historia</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-controls">
+      <button class="hero-arrow" id="hero-prev" aria-label="Diapositiva anterior">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="hero-dots" id="hero-dots">
+        <button class="hero-dot is-active" data-dot="0" aria-label="Ir a la diapositiva 1"></button>
+        <button class="hero-dot" data-dot="1" aria-label="Ir a la diapositiva 2"></button>
+        <button class="hero-dot" data-dot="2" aria-label="Ir a la diapositiva 3"></button>
+      </div>
+      <button class="hero-arrow" id="hero-next" aria-label="Siguiente diapositiva">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">1976</span><span class="stat-label">Año de inauguración</span></div>
+      <div class="stat"><span class="stat-num">+50</span><span class="stat-label">Años de operación</span></div>
+      <div class="stat"><span class="stat-num">San Vicente</span><span class="stat-label">El Salvador</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="about-teaser">
+  <div class="container about-inner">
+    <img class="about-media media-img" src="assets/ilustracion-historia.svg" alt="Ilustración de campos de caña de azúcar con el volcán de San Vicente al fondo">
+    <div class="about-copy">
+      <span class="eyebrow">Nuestra historia</span>
+      <h2>Construido para crecer junto a su comunidad</h2>
+      <p>El Ingenio Azucarero JIBOA (INJIBOA) fue construido en el departamento de San Vicente entre 1974 y 1976, e inaugurado en enero de 1976. Desde entonces, ha impulsado el desarrollo y la generación de empleo para los habitantes de la zona, consolidándose como un pilar de la actividad agroindustrial de la región.</p>
+      <a class="link-arrow" href="nosotros.html">Conoce más sobre nuestra historia
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="productos">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Lo que producimos</span>
+      <h2>Productos y procesos</h2>
+    </div>
+    <div class="products-grid">
+      <article class="product-card">
+        <div class="product-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 21V9M12 9C12 9 6 8 6 3C11 3 12 9 12 9ZM12 9C12 9 18 8 18 3C13 3 12 9 12 9Z" stroke="var(--azul-700)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Azúcar</h3>
+        <p>Producción de azúcar de caña en distintas presentaciones para consumo nacional e industrial.</p>
+      </article>
+      <article class="product-card">
+        <div class="product-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3C12 3 5 11 5 15.5C5 19.09 8.13 22 12 22C15.87 22 19 19.09 19 15.5C19 11 12 3 12 3Z" stroke="var(--celeste-600)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Melaza</h3>
+        <p>Subproducto de la molienda utilizado en la industria alimenticia y de biocombustibles.</p>
+      </article>
+      <article class="product-card">
+        <div class="product-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14H11L10 22L20 9H13L13 2Z" stroke="var(--verde-600)" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Energía renovable</h3>
+        <p>Cogeneración de energía eléctrica a partir del bagazo de caña, aprovechando cada parte del proceso.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="impact" id="sostenibilidad">
+  <div class="container impact-inner">
+    <div class="impact-copy">
+      <span class="eyebrow">Nuestro compromiso</span>
+      <h2>Comprometidos con nuestra gente y nuestra tierra</h2>
+      <p>Como generadores de empleo en San Vicente desde 1976, entendemos que el crecimiento del ingenio está ligado al bienestar de las familias y comunidades que nos rodean.</p>
+    </div>
+    <div class="impact-list">
+      <div class="impact-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p>Generación de empleo local para los habitantes de San Vicente.</p>
+      </div>
+      <div class="impact-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p>Aprovechamiento del bagazo de caña como fuente de energía renovable.</p>
+      </div>
+      <div class="impact-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p>Motor de desarrollo económico para el departamento desde 1976.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container cta-inner reveal">
+    <h2>¿Quieres conocer más sobre INJIBOA?</h2>
+    <p>Escríbenos y con gusto atenderemos tu consulta.</p>
+    <a class="btn-primary" href="contacto.html">Contáctanos</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/logo-injiboa.png" alt="INJIBOA">
+        <p>Ingenio Azucarero JIBOA, motor de desarrollo agroindustrial en San Vicente, El Salvador desde 1976.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Correo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M3 6H21V18H3V6Z" stroke="currentColor" stroke-width="1.7"/><path d="M3 7L12 13L21 7" stroke="currentColor" stroke-width="1.7"/></svg></a>
+          <a href="#" aria-label="Teléfono"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 4H9L11 9L8.5 10.5C9.5 12.7 11.3 14.5 13.5 15.5L15 13L20 15V19C20 20.1 19.1 21 18 21C10.3 20.5 4 14.2 3.5 6.5C3.5 5.1 4.1 4 5 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></a>
+          <a href="#" aria-label="Ubicación"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 22C12 22 19 15.5 19 10A7 7 0 0 0 5 10C5 15.5 12 22 12 22Z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.7"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Enlaces</h4>
+        <a href="index.html">Inicio</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="index.html#productos">Productos</a>
+        <a href="index.html#sostenibilidad">Sostenibilidad</a>
+        <a href="contacto.html">Contacto</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <p>[Dirección del ingenio, San Vicente, El Salvador]</p>
+        <p>[+503 0000-0000]</p>
+        <p>[info@injiboa.com]</p>
+      </div>
+      <div class="footer-col">
+        <h4>Información corporativa</h4>
+        <a href="#">[Memoria de labores]</a>
+        <a href="#">[Código de ética]</a>
+        <a href="#">[Aviso de privacidad]</a>
+        <a href="#">[Trabaja con nosotros]</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 INJIBOA — Ingenio Azucarero JIBOA. Todos los derechos reservados.</span>
+      <span>San Vicente, El Salvador</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
