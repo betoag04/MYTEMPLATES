@@ -5,3 +5,9 @@
 .portal-card{box-shadow:0 18px 32px -14px rgba(32,56,35,.30),0 5px 12px rgba(32,56,35,.07)}
 /* Profundidad uniforme en presentación e historia. */
 .portal-feature,.history{box-shadow:0 22px 40px -16px rgba(32,56,35,.30),0 7px 18px rgba(32,56,35,.07)}
+/* Cristal institucional suave en el pie de página. */
+footer{position:relative;isolation:isolate;background:radial-gradient(ellipse at 90% 0%,#456760 0,transparent 60%),linear-gradient(120deg,#203823,#2b4940);border-top:1px solid #e0f4eb50;box-shadow:inset 0 1px 0 #ffffff25;color:#edf4ed}
+.footer-top{padding:26px 30px 30px;margin-bottom:8px;border:1px solid #ffffff2b;border-radius:16px;background:linear-gradient(120deg,#ffffff0e,#d8f1ff06);box-shadow:inset 0 1px 0 #ffffff20,0 8px 24px #10251c10;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.footer-brand{border:1px solid #ffffffcc;box-shadow:0 4px 14px #10251c15}.footer-links a,.footer-bottom small{color:#e2ece3}.footer-bottom{border-top-color:#ffffff25}
+@media(max-width:760px){.footer-top{padding:23px;border-radius:12px}}
+@media(prefers-reduced-transparency:reduce){footer{background:#263f2d}.footer-top{background:#304b38;backdrop-filter:none;-webkit-backdrop-filter:none}}

@@ -13,3 +13,25 @@
  document.addEventListener('keydown', e => { if(e.key === 'Escape') items.forEach(item => { item.querySelector('.access-panel').hidden = false; close(item); if(item.classList.contains('open')) {item.querySelector('button').focus();close(item);} }); });
  document.addEventListener('click', e => { if(!e.target.closest('.side-access')) items.forEach(close); });
 })();
+(() => {
+ const nav = document.querySelector('.side-access');
+ const menu = document.querySelector('.tab-bar');
+ if (!nav || !menu) return;
+ let queued = false;
+ function place() {
+   queued = false;
+   
+   const top = Math.max(0, menu.getBoundingClientRect().bottom) + 14;
+   const space = Math.max(0, innerHeight - top - 14);
+   const height = Math.max(40, Math.min(82, (space - 20) / 3));
+   const group = height * 3 + 20;
+   nav.style.setProperty('--access-top', `${top + Math.max(0, (space - group) / 2)}px`);
+   nav.style.setProperty('--access-height', `${height}px`);
+   nav.style.setProperty('--access-space', `${Math.max(100, space)}px`);
+ }
+ function schedule() { if (!queued) { queued = true; requestAnimationFrame(place); } }
+ addEventListener('scroll', schedule, { passive: true });
+ addEventListener('resize', schedule);
+ new ResizeObserver(schedule).observe(menu);
+ place();
+})();
