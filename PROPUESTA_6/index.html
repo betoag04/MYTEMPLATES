@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ingenio Central Azucarero Jiboa, S.A. de C.V.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --carbon:#14181A;
+    --carbon-2:#1D2326;
+    --ambar:#E08E1D;
+    --ambar-suave:#F2B65A;
+    --verde:#1B4B3A;
+    --verde-suave:#2E7355;
+    --hueso:#F4F1EA;
+    --gris:#8A9096;
+    --linea:#2B3134;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--hueso);
+    color:var(--carbon);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px;}
+  :focus-visible{outline:3px solid var(--ambar);outline-offset:2px;}
+
+  header{position:sticky;top:0;z-index:60;background:rgba(20,24,26,0.96);backdrop-filter:blur(6px);}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand-mark{width:14px;height:34px;background:var(--ambar);clip-path:polygon(0 100%, 100% 100%, 60% 0, 0 0);}
+  .brand-name{color:var(--hueso);font-weight:700;font-size:18px;letter-spacing:-.01em;}
+  .brand-name span{color:var(--ambar);}
+  nav.primary{display:flex;gap:36px;}
+  nav.primary a{color:#C7CCCE;font-size:14.5px;font-weight:500;}
+  nav.primary a:hover{color:var(--hueso);}
+  .btn-ambar{background:var(--ambar);color:var(--carbon);padding:11px 22px;font-weight:700;font-size:14px;}
+  .btn-ambar:hover{background:var(--ambar-suave);}
+
+  /* HERO asimétrico */
+  .hero{background:var(--carbon);color:var(--hueso);position:relative;overflow:hidden;}
+  .hero-inner{display:grid;grid-template-columns:1.3fr .95fr;min-height:640px;}
+  .hero-copy{padding:100px 0 80px 40px;max-width:640px;position:relative;z-index:2;}
+  .hero-copy .tag{display:inline-flex;align-items:center;gap:8px;color:var(--ambar-suave);font-size:13.5px;font-weight:600;margin-bottom:26px;}
+  .hero-copy .tag::before{content:"";width:8px;height:8px;background:var(--ambar);display:inline-block;}
+  .hero h1{font-size:clamp(38px,5vw,58px);font-weight:700;line-height:1.04;letter-spacing:-.01em;}
+  .hero p{margin-top:26px;font-size:17.5px;color:#B7BDBF;max-width:46ch;}
+  .hero-cta{margin-top:38px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-outline-light{border:1.5px solid #3A4245;color:var(--hueso);padding:14px 24px;font-weight:600;font-size:14.5px;}
+  .btn-outline-light:hover{border-color:var(--ambar);}
+
+  .hero-visual{position:relative;background:linear-gradient(155deg,var(--verde) 0%,#123D2F 55%,var(--carbon) 100%);}
+  .hero-visual svg{position:absolute;inset:0;width:100%;height:100%;}
+  .hero-figure{position:absolute;right:40px;bottom:40px;background:var(--carbon-2);border:1px solid var(--linea);padding:22px 26px;max-width:220px;}
+  .hero-figure .n{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:var(--ambar);}
+  .hero-figure .l{font-size:12.5px;color:var(--gris);margin-top:4px;}
+
+  /* Cifras — protagonismo numérico */
+  .metrics{background:var(--hueso);border-bottom:1px solid #E2DCCB;}
+  .metrics .wrap{display:grid;grid-template-columns:repeat(4,1fr);}
+  .metric{padding:52px 28px;border-left:1px solid #E2DCCB;}
+  .metric:first-child{border-left:none;padding-left:0;}
+  .metric .n{font-family:'Space Grotesk',sans-serif;font-size:44px;font-weight:700;color:var(--carbon);letter-spacing:-.02em;}
+  .metric .n .u{color:var(--ambar);}
+  .metric .l{font-size:13.5px;color:#5C625F;margin-top:8px;max-width:22ch;}
+
+  section{padding:110px 0;}
+  .head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:56px;flex-wrap:wrap;}
+  .head-row .tag{color:var(--verde-suave);font-weight:600;font-size:13.5px;margin-bottom:14px;display:block;}
+  .head-row h2{font-size:clamp(28px,3.4vw,40px);font-weight:700;letter-spacing:-.01em;max-width:14ch;}
+  .head-row .desc{max-width:38ch;font-size:15.5px;color:#565B58;}
+
+  /* Nosotros - asimétrico con panel diagonal */
+  .about{background:#EFE9D9;}
+  .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;align-items:stretch;}
+  .about-panel{background:var(--verde);color:var(--hueso);padding:56px 48px;position:relative;overflow:hidden;clip-path:polygon(0 0,100% 0,88% 100%,0% 100%);}
+  .about-panel h3{font-size:26px;font-weight:600;margin-bottom:18px;}
+  .about-panel p{color:#CFE1D5;font-size:15px;margin-bottom:14px;}
+  .about-text{padding:56px 24px 56px 64px;}
+  .fact-list{display:grid;gap:0;margin-top:6px;}
+  .fact{display:grid;grid-template-columns:110px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid #DCD4BC;}
+  .fact:first-child{border-top:1px solid #DCD4BC;}
+  .fact .y{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--verde);}
+  .fact .d{font-size:14.5px;color:#4C4A3E;}
+
+  /* Productos - grid tarjetas cuadradas planas */
+  .products{background:var(--carbon);color:var(--hueso);}
+  .products .head-row h2, .products .head-row .tag{color:var(--hueso);}
+  .products .head-row .tag{color:var(--ambar-suave);}
+  .products .head-row .desc{color:#9BA1A0;}
+  .prod-row{display:grid;grid-template-columns:repeat(3,1fr);}
+  .prod{border-top:1px solid var(--linea);padding:38px 0;position:relative;}
+  .prod:not(:first-child){padding-left:40px;}
+  .prod:not(:first-child)::before{content:"";position:absolute;left:0;top:38px;bottom:38px;width:1px;background:var(--linea);}
+  .prod .idx{font-family:'Space Grotesk',sans-serif;color:var(--ambar);font-size:13px;font-weight:700;margin-bottom:18px;}
+  .prod h3{font-size:21px;font-weight:600;margin-bottom:12px;}
+  .prod p{font-size:14.5px;color:#9BA1A0;max-width:32ch;}
+
+  /* Calidad — banda ámbar */
+  .quality{background:var(--ambar);color:var(--carbon);}
+  .quality .head-row .tag{color:#5C3D07;}
+  .quality-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;}
+  .q-item{border-top:2px solid var(--carbon);padding-top:18px;}
+  .q-item h4{font-size:16.5px;font-weight:700;margin-bottom:8px;}
+  .q-item p{font-size:14px;color:#4A340B;}
+  .quality-note{margin-top:56px;background:#F2B65A;border:1px dashed #5C3D07;padding:22px 26px;font-size:13.5px;color:#3F2A05;max-width:70ch;}
+
+  footer{background:var(--carbon-2);color:#9BA1A0;padding:80px 0 0;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:56px;border-bottom:1px solid var(--linea);}
+  footer h5{color:var(--hueso);font-size:14px;font-weight:600;margin-bottom:18px;}
+  footer .brand-name{margin-bottom:14px;display:inline-flex;}
+  footer p{font-size:14px;max-width:32ch;}
+  footer ul{list-style:none;}
+  footer ul li{margin-bottom:10px;font-size:14px;}
+  footer ul li a:hover{color:var(--ambar-suave);}
+  .foot-bottom{display:flex;justify-content:space-between;padding:22px 0;font-size:12.5px;color:#5E6467;flex-wrap:wrap;gap:8px;}
+
+  @media (max-width:900px){
+    nav.primary{display:none;}
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-visual{min-height:280px;}
+    .hero-figure{position:static;margin:24px 40px;max-width:none;}
+    .hero-copy{padding:64px 24px 40px;}
+    .metrics .wrap{grid-template-columns:1fr 1fr;}
+    .metric{padding:32px 20px;border-left:none;border-top:1px solid #E2DCCB;}
+    .about-grid{grid-template-columns:1fr;}
+    .about-panel{clip-path:none;}
+    .about-text{padding:40px 24px;}
+    .prod-row{grid-template-columns:1fr;}
+    .prod:not(:first-child){padding-left:0;}
+    .prod:not(:first-child)::before{display:none;}
+    .quality-grid{grid-template-columns:1fr;gap:28px;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div class="brand-name">INJIBOA <span>·</span> Ingenio Jiboa</div>
+    </div>
+    <nav class="primary">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#productos">Productos</a>
+      <a href="#calidad">Calidad</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a href="#contacto" class="btn-ambar">Contáctenos</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="tag">Ingenio Central Azucarero Jiboa, S.A. de C.V.</div>
+      <h1>Caña de San Vicente, azúcar para el mundo</h1>
+      <p>Desde 1976 transformamos la caña de azúcar del Bajo Lempa en productos de exportación, con procesos industriales controlados y presencia en mercados internacionales.</p>
+      <div class="hero-cta">
+        <a href="#productos" class="btn-ambar">Ver productos</a>
+        <a href="#nosotros" class="btn-outline-light">Conocer el ingenio</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg viewBox="0 0 500 640" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#3E7A5F" stroke-width="1.6" opacity="0.8" fill="none">
+          <path d="M60 640 C40 500 90 420 55 300 C40 240 65 160 60 60"/>
+          <path d="M160 640 C180 480 130 400 175 280 C195 220 165 140 160 20"/>
+          <path d="M260 640 C240 500 290 420 255 300 C240 240 265 150 260 40"/>
+          <path d="M360 640 C380 480 330 400 375 280 C395 220 365 130 360 10"/>
+          <path d="M460 640 C440 500 490 420 455 300 C440 240 465 160 460 60"/>
+        </g>
+        <g fill="#F2B65A" opacity="0.85">
+          <circle cx="60" cy="60" r="6"/><circle cx="160" cy="20" r="6"/><circle cx="260" cy="40" r="6"/><circle cx="360" cy="10" r="6"/><circle cx="460" cy="60" r="6"/>
+        </g>
+      </svg>
+      <div class="hero-figure">
+        <div class="n">1976</div>
+        <div class="l">Año de fundación del ingenio en San Vicente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="metrics">
+  <div class="wrap">
+    <div class="metric"><div class="n">49<span class="u">+</span></div><div class="l">Años de operación continua</div></div>
+    <div class="metric"><div class="n">500<span class="u">+</span></div><div class="l">Colaboradores directos</div></div>
+    <div class="metric"><div class="n">02</div><div class="l">Líneas de producto: azúcar cruda y melaza</div></div>
+    <div class="metric"><div class="n">SV</div><div class="l">San Vicente, corazón cañero de El Salvador</div></div>
+  </div>
+</div>
+
+<section class="about" id="nosotros">
+  <div class="about-grid">
+    <div class="about-panel">
+      <h3>Del Bajo Lempa a los mercados de exportación</h3>
+      <p>Nuestra ubicación en San Vicente nos conecta directamente con una de las zonas cañeras más productivas de El Salvador.</p>
+      <p>Km 68½ Carretera San Vicente–Zacatecoluca, Cantón San Antonio Caminos.</p>
+    </div>
+    <div class="about-text">
+      <div class="head-row" style="margin-bottom:8px;">
+        <div>
+          <span class="tag">Quiénes somos</span>
+          <h2>Una agroindustria con casi cinco décadas de trayectoria</h2>
+        </div>
+      </div>
+      <p class="desc" style="max-width:52ch;font-size:15.5px;color:#4C4A3E;">El Ingenio Central Azucarero Jiboa, S.A. de C.V. procesa caña de azúcar cultivada en la región para producir azúcar cruda y melaza, manteniendo relaciones comerciales de largo plazo con clientes nacionales e internacionales.</p>
+      <div class="fact-list">
+        <div class="fact"><div class="y">1976</div><div class="d">Constitución del Ingenio Central Azucarero Jiboa, S.A. de C.V.</div></div>
+        <div class="fact"><div class="y">Hoy</div><div class="d">Zafra activa, procesamiento industrial y exportación continua de azúcar cruda y melaza.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="productos">
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <span class="tag">Líneas de producto</span>
+        <h2>Lo que sale de la molienda</h2>
+      </div>
+      <div class="desc">Cada zafra produce dos líneas principales, con procesos de control desde el corte de caña hasta el producto terminado.</div>
+    </div>
+    <div class="prod-row">
+      <div class="prod">
+        <div class="idx">01</div>
+        <h3>Azúcar cruda de caña</h3>
+        <p>Producto principal de exportación, procesado a partir de caña cultivada en la zona de San Vicente.</p>
+      </div>
+      <div class="prod">
+        <div class="idx">02</div>
+        <h3>Melaza</h3>
+        <p>Subproducto de la molienda, aprovechado como insumo industrial y para alimentación animal.</p>
+      </div>
+      <div class="prod">
+        <div class="idx">03</div>
+        <h3>Comercio internacional</h3>
+        <p>Relaciones comerciales de largo plazo con clientes y traders del sector azucarero en distintos mercados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quality" id="calidad">
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <span class="tag">Calidad e inocuidad</span>
+        <h2>Control en cada etapa de la zafra</h2>
+      </div>
+    </div>
+    <div class="quality-grid">
+      <div class="q-item">
+        <h4>Recepción y molienda controlada</h4>
+        <p>Seguimiento de la caña desde su ingreso hasta el proceso de extracción.</p>
+      </div>
+      <div class="q-item">
+        <h4>Especificaciones por cliente</h4>
+        <p>Cumplimiento de los parámetros técnicos acordados con cada comprador.</p>
+      </div>
+      <div class="q-item">
+        <h4>Mejora continua de proceso</h4>
+        <p>Prácticas alineadas a los estándares de la industria azucarera regional.</p>
+      </div>
+    </div>
+    <div class="quality-note">
+      Sección de muestra: se recomienda sustituir por el detalle real de certificaciones vigentes (inocuidad alimentaria, comercio internacional, etc.) y sus logotipos oficiales, una vez validados por el cliente.
+    </div>
+  </div>
+</section>
+
+<footer id="contacto">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand-name" style="display:flex;align-items:center;gap:10px;"><div class="brand-mark"></div><span style="color:#F4F1EA;font-weight:700;">INJIBOA</span></div>
+        <p>Ingenio Central Azucarero Jiboa, S.A. de C.V. Agroindustria azucarera en San Vicente, El Salvador, desde 1976.</p>
+      </div>
+      <div>
+        <h5>Empresa</h5>
+        <ul>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="#calidad">Calidad</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Recursos</h5>
+        <ul>
+          <li><a href="#">Proveedores</a></li>
+          <li><a href="#">Trabaja con nosotros</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contacto</h5>
+        <ul>
+          <li>Km 68½ Carretera San Vicente–Zacatecoluca</li>
+          <li>San Vicente, El Salvador</li>
+          <li>+503 2399 4900</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Ingenio Central Azucarero Jiboa, S.A. de C.V.</span>
+      <span>Sitio de muestra — propuesta 2 de 2</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
